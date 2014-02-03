@@ -54,7 +54,7 @@ else
 	@echo firmware=\"3.0-1593\" >> $@
 endif
 ifneq ($(strip $(BETA)),)
-	@echo report_url=\"https://github.com/SynoCommunity/spksrc/issues\" >> $@
+	@echo report_url=\"https://github.com/francisbesset/spksrc/issues\" >> $@
 	@echo beta=1 >> $@
 endif
 ifneq ($(strip $(HELPURL)),)
