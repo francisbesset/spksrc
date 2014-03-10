@@ -7,6 +7,7 @@ DNAME="Media Indexer"
 # Others
 INSTALL_DIR="/usr/local/${PACKAGE}"
 SSS="/var/packages/${PACKAGE}/scripts/start-stop-status"
+TMP_DIR="${SYNOPKG_PKGDEST}/../../@tmp"
 
 preinst ()
 {
@@ -18,7 +19,7 @@ postinst ()
     # Link
     ln -s ${SYNOPKG_PKGDEST} ${INSTALL_DIR}
 
-    echo -e "WATCH_DIRECTORIES=\"${wizard_watch_directories:=/volume1/video /volume1/music /volume1/photo}\"" \
+    echo -e "WATCH_DIRECTORIES=\"${wizard_watch_directories:=/volume1/video:/volume1/music:/volume1/photo}\"" \
             "\nPID_FILE=\"${INSTALL_DIR}/var/media-indexer.pid\"" \
             "\nFIFO_FILE=\"${INSTALL_DIR}/var/media-indexer.fifo\"" \
             "\n#LOG_FILE=\"${INSTALL_DIR}/var/media-indexer.log\"" \

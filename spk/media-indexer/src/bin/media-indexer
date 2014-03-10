@@ -26,6 +26,9 @@ if [ ! -e "${FIFO_FILE}" ] ; then
     mknod "${FIFO_FILE}" p
 fi
 
+# set Internal Field Separator with ":" to separate directory names
+IFS=":"
+
 # use $* to get the list of directories
 DIRECTORIES=$*
 
