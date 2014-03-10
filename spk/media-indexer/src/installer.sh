@@ -30,6 +30,9 @@ postinst ()
 
 preuninst ()
 {
+    # Stop the package
+    ${SSS} stop > /dev/null
+
     exit 0
 }
 
@@ -43,10 +46,29 @@ postuninst ()
 
 preupgrade ()
 {
+    # Stop the package
+    ${SSS} stop > /dev/null
+
+    # create tmp dir
+    rm -rf ${TMP_DIR}/${PACKAGE}
+    mkdir -p ${TMP_DIR}/${PACKAGE}
+
+    # move config file in tmp dir
+    mv ${INSTALL_DIR}/etc/media-indexer ${TMP_DIR}/${PACKAGE}/media-indexer.conf
+
     exit 0
 }
 
 postupgrade ()
 {
+    # backup original config file
+    mv ${INSTALL_DIR}/etc/media-indexer ${INSTALL_DIR}/etc/media-indexer.old
+
+    # restore config file
+    mv ${TMP_DIR}/${PACKAGE}/media-indexer.conf ${INSTALL_DIR}/etc/media-indexer
+
+    # remove tmp dir
+    rm -rf ${TMP_DIR}/${PACKAGE}
+
     exit 0
 }
