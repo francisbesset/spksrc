@@ -14,7 +14,7 @@ STARTABLE = no
 BETA = 1
 
 HOMEPAGE = https://github.com/rvoicilas/inotify-tools/wiki
-LICENSE  = GNU GPL 2
+LICENSE_FILE = LICENSE
 
 INSTALLER_SCRIPT = src/installer.sh
 SSS_SCRIPT       = src/dsm-control.sh
