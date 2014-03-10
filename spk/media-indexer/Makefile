@@ -14,7 +14,7 @@ DISPLAY_NAME = Media Indexer
 BETA = 1
 
 HOMEPAGE = https://github.com/francisbesset/spksrc
-LICENSE  = 
+LICENSE_FILE = LICENSE
 
 WIZARDS_DIR = src/wizard/
 
