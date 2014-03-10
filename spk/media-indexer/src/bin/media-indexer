@@ -72,7 +72,7 @@ while read -r ; do
         log="At `date`, Media Indexer ADD FILES: $file_name"
     fi
 
-    if [ -n "${LOG_FILE}" ] ; then
+    if [ -n "${LOG_FILE}" ] && [ -n "$log" ] ; then
         echo "$log" >> "${LOG_FILE}"
     fi
     unset log
