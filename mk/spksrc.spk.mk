@@ -48,6 +48,15 @@ $(WORK_DIR)/INFO: Makefile $(SPK_ICON)
 	) | sed 's|"\s|"\n|' >> $@
 	@echo maintainer=\"$(MAINTAINER)\" >> $@
 	@echo arch=\"$(SPK_ARCH)\" >> $@
+ifneq ($(strip $(MAINTAINER_URL)),)
+	@echo maintainer_url=\"$(MAINTAINER_URL)\" >> $@
+endif
+ifneq ($(strip $(DISTRIBUTOR)),)
+	@echo distributor=\"$(DISTRIBUTOR)\" >> $@
+endif
+ifneq ($(strip $(DISTRIBUTOR_URL)),)
+	@echo distributor_url=\"$(DISTRIBUTOR_URL)\" >> $@
+endif
 ifneq ($(strip $(FIRMWARE)),)
 	@echo firmware=\"$(FIRMWARE)\" >> $@
 else
