@@ -1,5 +1,10 @@
 #!/bin/sh
 
+#
+# This script is inspired by a solution posted on a Synology forum:
+# http://forum.synology.com/enu/viewtopic.php?f=37&t=30242
+#
+
 while getopts p:f:l: opt ; do
     case "${opt}" in
         p) PID_FILE="${OPTARG}" ;;
