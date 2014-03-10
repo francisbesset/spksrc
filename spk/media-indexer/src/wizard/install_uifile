@@ -1,0 +1,11 @@
+[{
+    "step_title": "Basic configuration",
+    "items": [{
+        "type": "textfield",
+        "desc": "Media directories (separated by space). Defaults: /volume1/video /volume1/music /volume1/photo",
+        "subitems": [{
+            "key": "wizard_watch_directories",
+            "desc": "Watch directories"
+        }]
+    }]
+}]

@@ -1,0 +1,79 @@
+#!/bin/sh
+
+while getopts p:f:l: opt ; do
+    case "${opt}" in
+        p) PID_FILE="${OPTARG}" ;;
+        f) FIFO_FILE="${OPTARG}" ;;
+        l) LOG_FILE="${OPTARG}" ;;
+        \?) # unknow flag
+           echo >&2 \
+           "usage: $0 [-p pid-file] [-f fifo-file] [-l log-file] [directory ...]"
+           exit 1 ;;
+    esac
+done
+
+shift $((OPTIND-1))
+
+if [ -z "$[PID_FILE}" ] ; then
+    echo "Option "-p" cannot be empty"
+    exit 1
+elif [ -z "${FIFO_FILE}" ] ; then
+    echo "Option "-f" cannot be empty"
+    exit 1
+fi
+
+if [ ! -e "${FIFO_FILE}" ] ; then
+    mknod "${FIFO_FILE}" p
+fi
+
+# use $* to get the list of directories
+DIRECTORIES=$*
+
+/usr/local/bin/inotifywait -mrcq -e close_write -e moved_to -e moved_from -e move -e create -e delete -e unmount ${DIRECTORIES} > "${FIFO_FILE}" &
+echo $! > "${PID_FILE}"
+
+while read -r ; do
+    eval "$(echo "$REPLY" | sed -r 's#'\''#'\'\\\\\'\''#; s#^("([^"]*)"|([^"][^,]*)),("([^"]*)"|([^"][^,]*)),("([^"]*)"|([^"][^,]*))$#file_name='\''\2\3\8\9'\''; action='\''\5\6'\''#')"
+
+    #if [ "$action" = "CREATE" ] ; then
+    #echo '0 NOTHING to file CREATE! ONLY on WRITE_CLOSE'
+    #fi
+
+    if [ "$action" = "CREATE,ISDIR" ] ; then
+        /usr/syno/bin/synoindex -A "$file_name" > /dev/null
+        log="At `date`, Media Indexer ADD DIRs: $file_name"
+    fi
+    if [ "$action" = "CLOSE_WRITE,CLOSE" ] ; then
+        /usr/syno/bin/synoindex -a "$file_name" > /dev/null
+        log="At `date`, Media Indexer ADD FILES: $file_name"
+    fi
+    if [ "$action" = "DELETE" ] ; then
+        /usr/syno/bin/synoindex -d "$file_name" > /dev/null
+        log="At `date`, Media Indexer REMOVE FILES: $file_name"
+    fi
+    if [ "$action" = "DELETE,ISDIR" ] ; then
+        /usr/syno/bin/synoindex -D "$file_name" > /dev/null
+        log="At `date`, Media Indexer REMOVE DIRs: $file_name"
+    fi
+    if [ "$action" = "MOVED_FROM,ISDIR" ] ; then
+        /usr/syno/bin/synoindex -D "$file_name" > /dev/null
+        log="At `date`, Media Indexer REMOVE DIRs: $file_name"
+    fi
+    if [ "$action" = "MOVED_FROM" ] ; then
+        /usr/syno/bin/synoindex -d "$file_name" > /dev/null
+        log="At `date`, Media Indexer REMOVE FILES: $file_name"
+    fi
+    if [ "$action" = "MOVED_TO,ISDIR" ] ; then
+        /usr/syno/bin/synoindex -A "$file_name" > /dev/null
+        log="At `date`, Media Indexer ADD DIRs: $file_name"
+    fi
+    if [ "$action" = "MOVED_TO" ] ; then
+        /usr/syno/bin/synoindex -a "$file_name" > /dev/null
+        log="At `date`, Media Indexer ADD FILES: $file_name"
+    fi
+
+    if [ -n "${LOG_FILE}" ] ; then
+        echo "$log" >> "${LOG_FILE}"
+    fi
+    unset log
+done < "${FIFO_FILE}" &
