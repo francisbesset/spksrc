@@ -5,7 +5,11 @@ SPK_ICON = src/$(SPK_NAME).png
 
 DEPENDS = cross/$(SPK_NAME)
 
-MAINTAINER = Francis Besset
+MAINTAINER = Radu Voicilas
+MAINTAINER_URL = https://github.com/rvoicilas
+DISTRIBUTOR = Francis Besset
+DISTRIBUTOR_URL = http://francis-besset.com
+
 DESCRIPTION = inotify-tools is a C library and a set of command-line programs for Linux providing a simple interface to inotify.
 DESCRIPTION_FRE = inotify-tools est une librairie C et un ensemble de programmes en ligne de commande pour Linux fournissant une interface simple à inotify.
 RELOAD_UI = no
