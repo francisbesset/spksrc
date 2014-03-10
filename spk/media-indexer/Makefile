@@ -7,6 +7,10 @@ DEPENDS =
 SPK_DEPENDS = "inotify-tools>=3.14-1"
 
 MAINTAINER = Francis Besset
+MAINTAINER_URL = http://francis-besset.com
+DISTRIBUTOR = Francis Besset
+DISTRIBUTOR_URL = http://francis-besset.com
+
 DESCRIPTION = Media Indexer instantly index new files for viewing on sharing UPnP. The graphical user interface is not available, but you can edit the configuration with a text editor: /var/packages/media-indexer/target/etc/media-indexer
 DESCRIPTION_FRE = Media Indexer indexe instantanement les nouveaux fichiers pour les visualiser en partage UPnP. L\\\'interface utilisateur n\\\'est pas disponible, mais vous pouvez éditer le fichier de configuration avec un éditeur de texte : /var/packages/media-indexer/target/etc/media-indexer
 RELOAD_UI = yes
