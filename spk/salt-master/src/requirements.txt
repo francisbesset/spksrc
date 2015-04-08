@@ -1,0 +1,4 @@
+salt==2014.7.2
+Jinja2
+requests>=1.0.0
+CherryPy

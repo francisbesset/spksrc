@@ -6,4 +6,4 @@ cd spksrc
 make setup
 
 cd spk/inotify-tools
-make arch-88f6281
+make arch-cedarview
