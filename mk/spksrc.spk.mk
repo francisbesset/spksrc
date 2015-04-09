@@ -54,6 +54,7 @@ $(WORK_DIR)/INFO:
 	   ) \
 	) | sed 's|"\s|"\n|' >> $@
 	@echo arch=\"$(SPK_ARCH)\" >> $@
+	@echo maintainer=\"$(MAINTAINER)\" >> $@
 ifneq ($(strip $(MAINTAINER_URL)),)
 	@echo maintainer_url=\"$(MAINTAINER_URL)\" >> $@
 endif
