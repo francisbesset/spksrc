@@ -19,7 +19,7 @@ done
 
 shift $((OPTIND-1))
 
-if [ -z "$[PID_FILE}" ] ; then
+if [ -z "${PID_FILE}" ] ; then
     echo "Option "-p" cannot be empty"
     exit 1
 elif [ -z "${FIFO_FILE}" ] ; then
