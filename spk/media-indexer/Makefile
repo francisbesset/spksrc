@@ -1,6 +1,6 @@
 SPK_NAME = media-indexer
-SPK_VERS = 1.1.0
-SPK_REV = 2
+SPK_VERS = 1.1.1
+SPK_REV = 1
 SPK_ICON = src/$(SPK_NAME).png
 
 DEPENDS =
@@ -16,7 +16,6 @@ DESCRIPTION_FRE = Media Indexer indexe instantanement les nouveaux fichiers pour
 RELOAD_UI = yes
 DISPLAY_NAME = Media Indexer
 
-BETA = 1
 REPORT_URL = https://github.com/francisbesset/spksrc/issues
 
 HOMEPAGE = https://github.com/francisbesset/spksrc
