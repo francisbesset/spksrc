@@ -36,6 +36,7 @@ IFS=":"
 
 # use $* to get the list of directories
 DIRECTORIES=$*
+echo "Directories watched: ${DIRECTORIES}"
 
 /usr/local/bin/inotifywait -mrcq -e close_write -e moved_to -e moved_from -e move -e create -e delete -e unmount ${DIRECTORIES} > "${FIFO_FILE}" &
 echo $! > "${PID_FILE}"
