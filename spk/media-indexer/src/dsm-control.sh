@@ -10,17 +10,23 @@ PATH="${INSTALL_DIR}/bin:/usr/local/bin:/bin:/usr/bin:/usr/syno/bin:/usr/local/s
 
 source "${INSTALL_DIR}/etc/media-indexer"
 
+daemon_log="/dev/null"
+if [ -n "${LOG_FILE}" ] ; then
+    log_arg="-l "${LOG_FILE}""
+    daemon_log="${LOG_FILE}"
+fi
+
 start_daemon ()
 {
-    if [ -n "${LOG_FILE}" ] ; then
-        log_arg="-l "${LOG_FILE}""
-    fi
+    echo "Daemon started at $(date)" >> ${daemon_log} 2>&1
 
-    ${INSTALL_DIR}/bin/media-indexer -p "${PID_FILE}" -f "${FIFO_FILE}" ${log_arg} "${WATCH_DIRECTORIES}"
+    ${INSTALL_DIR}/bin/media-indexer -p "${PID_FILE}" -f "${FIFO_FILE}" ${log_arg} "${WATCH_DIRECTORIES}" >> ${daemon_log} 2>&1
 }
 
 stop_daemon ()
 {
+    echo "Daemon stopped at $(date)" >> ${daemon_log} 2>&1
+
     kill `cat ${PID_FILE}`
     wait_for_status 1 20 || kill -9 `cat ${PID_FILE}`
     rm -f ${PID_FILE}
