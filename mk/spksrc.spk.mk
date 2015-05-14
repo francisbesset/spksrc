@@ -99,7 +99,7 @@ else
   endif
 endif
 ifneq ($(strip $(BETA)),)
-	@echo beta=1 >> $@
+	@echo report_url=\"https://github.com/francisbesset/spksrc/issues\" >> $@
 endif
 ifneq ($(strip $(REPORT_URL)),)
 	@echo report_url=\"$(REPORT_URL)\" >> $@
