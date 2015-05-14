@@ -42,6 +42,8 @@ echo "Directories watched: ${DIRECTORIES}"
 echo $! > "${PID_FILE}"
 
 while read -r ; do
+    echo "${REPLY}"
+
     eval "$(echo "$REPLY" | sed -r 's#'\''#'\'\\\\\'\''#; s#^("([^"]*)"|([^"][^,]*)),("([^"]*)"|([^"][^,]*)),("([^"]*)"|([^"][^,]*))$#file_name='\''\2\3\8\9'\''; action='\''\5\6'\''#')"
 
     #if [ "$action" = "CREATE" ] ; then
@@ -82,7 +84,7 @@ while read -r ; do
     fi
 
     if [ -n "${LOG_FILE}" ] && [ -n "$log" ] ; then
-        echo "$log" >> "${LOG_FILE}"
+        echo "$log" >> "${LOG_FILE}" 2>&1
     fi
     unset log
 done < "${FIFO_FILE}" &
