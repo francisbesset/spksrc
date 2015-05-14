@@ -1,5 +1,5 @@
 PKG_NAME = mercurial
-PKG_VERS = 2.8.2
+PKG_VERS = 3.4
 PKG_EXT = tar.gz
 PKG_DIST_NAME = $(PKG_NAME)-$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_SITE = http://mercurial.selenic.com/release
@@ -11,4 +11,4 @@ HOMEPAGE = http://mercurial.selenic.com/
 COMMENT  = Mercurial is a free, distributed source control management tool
 LICENSE  = GPLv2
 
-include ../../mk/spksrc.python-module.mk
+include ../../mk/spksrc.python-wheel.mk

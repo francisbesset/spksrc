@@ -15,7 +15,9 @@ DESCRIPTION_FRE = inotify-tools est une librairie C et un ensemble de programmes
 RELOAD_UI = no
 DISPLAY_NAME = inotify-tools
 STARTABLE = no
+
 BETA = 1
+REPORT_URL = https://github.com/francisbesset/spksrc/issues
 
 HOMEPAGE = https://github.com/rvoicilas/inotify-tools/wiki
 LICENSE_FILE = LICENSE

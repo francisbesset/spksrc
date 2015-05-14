@@ -15,6 +15,8 @@ VIRTUALENV="${PYTHON_DIR}/bin/virtualenv"
 CFG_FILE="${INSTALL_DIR}/var/config.ini"
 TMP_DIR="${SYNOPKG_PKGDEST}/../../@tmp"
 
+SERVICETOOL="/usr/syno/bin/servicetool"
+FWPORTS="/var/packages/${PACKAGE}/scripts/${PACKAGE}.sc"
 
 preinst ()
 {
@@ -36,8 +38,8 @@ postinst ()
     # Create a Python virtualenv
     ${VIRTUALENV} --system-site-packages ${INSTALL_DIR}/env > /dev/null
 
-    # Install the bundle
-    ${INSTALL_DIR}/env/bin/pip install --no-index -U ${INSTALL_DIR}/share/requirements.pybundle > /dev/null
+    # Install the wheels/requirements
+    ${INSTALL_DIR}/env/bin/pip install --use-wheel --no-deps --no-index -U --force-reinstall -f ${INSTALL_DIR}/share/wheelhouse -r ${INSTALL_DIR}/share/wheelhouse/requirements.txt > /dev/null 2>&1
 
     # Install Deluge
     cd ${INSTALL_DIR}/share/deluge && ${INSTALL_DIR}/env/bin/python setup.py install > /dev/null
@@ -47,6 +49,9 @@ postinst ()
 
     # Correct the files ownership
     chown -R ${USER}:root ${SYNOPKG_PKGDEST}
+
+    # Add firewall config
+    ${SERVICETOOL} --install-configure-file --package ${FWPORTS} >> /dev/null
 
     exit 0
 }
@@ -60,6 +65,11 @@ preuninst ()
     if [ "${SYNOPKG_PKG_STATUS}" != "UPGRADE" ]; then
         delgroup ${USER} ${GROUP}
         deluser ${USER}
+    fi
+
+    # Remove firewall config
+    if [ "${SYNOPKG_PKG_STATUS}" == "UNINSTALL" ]; then
+        ${SERVICETOOL} --remove-configure-file --package ${PACKAGE}.sc >> /dev/null
     fi
 
     exit 0

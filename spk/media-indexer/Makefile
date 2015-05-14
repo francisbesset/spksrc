@@ -15,7 +15,9 @@ DESCRIPTION = Media Indexer instantly index new files for viewing on sharing UPn
 DESCRIPTION_FRE = Media Indexer indexe instantanement les nouveaux fichiers pour les visualiser en partage UPnP. L\\\'interface utilisateur n\\\'est pas disponible, mais vous pouvez éditer le fichier de configuration avec un éditeur de texte : /var/packages/media-indexer/target/etc/media-indexer
 RELOAD_UI = yes
 DISPLAY_NAME = Media Indexer
+
 BETA = 1
+REPORT_URL = https://github.com/francisbesset/spksrc/issues
 
 HOMEPAGE = https://github.com/francisbesset/spksrc
 LICENSE_FILE = LICENSE
